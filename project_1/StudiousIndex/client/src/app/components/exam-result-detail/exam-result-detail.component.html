@@ -1,0 +1,69 @@
+<div class="container mt-5 mb-5" *ngIf="result; else loadingTpl">
+  <div class="card shadow-lg mb-4">
+    <div class="card-header bg-primary text-white py-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3 class="mb-0"><i class="bi bi-card-checklist me-2"></i>Result: {{ result.examTitle }}</h3>
+        <span class="badge bg-light text-primary fs-5">{{ result.score }} / {{ result.totalMarks }}</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-between mb-3 text-muted">
+        <span>Student: <strong>{{ result.studentName }}</strong></span>
+        <span>Submitted: {{ result.submittedAt | date:'medium' }}</span>
+      </div>
+      
+      <div class="progress mb-4" style="height: 25px;">
+        <div class="progress-bar" role="progressbar" 
+             [style.width.%]="(result.score / result.totalMarks) * 100"
+             [ngClass]="{'bg-success': (result.score / result.totalMarks) >= 0.7, 'bg-warning': (result.score / result.totalMarks) >= 0.4 && (result.score / result.totalMarks) < 0.7, 'bg-danger': (result.score / result.totalMarks) < 0.4}">
+          {{ ((result.score / result.totalMarks) * 100) | number:'1.0-0' }}%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let question of result.questions; let i = index" class="card mb-4 shadow-sm">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Question {{ i+1 }}</h5>
+      <span class="badge" [ngClass]="question.isCorrect ? 'bg-success' : 'bg-danger'">
+        {{ question.isCorrect ? 'Correct' : 'Incorrect' }}
+        ({{ question.isCorrect ? question.marks : 0 }} / {{ question.marks }} marks)
+      </span>
+    </div>
+    <div class="card-body">
+      <p class="lead mb-3">{{ question.text }}</p>
+      
+      <ul class="list-group">
+        <li *ngFor="let option of question.options" 
+            class="list-group-item d-flex justify-content-between align-items-center"
+            [ngClass]="getOptionClass(question, option)">
+          <div>
+            <i class="me-2" [ngClass]="getIconClass(question, option)"></i>
+            {{ option.text }}
+          </div>
+          <span *ngIf="question.selectedOptionId === option.id" class="badge bg-secondary">Your Answer</span>
+          <span *ngIf="question.correctOptionId === option.id && question.selectedOptionId !== option.id" class="badge bg-success">Correct Answer</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button (click)="goBack()" class="btn btn-outline-primary btn-lg">
+      <i class="bi bi-arrow-left me-2"></i>Back to Exams
+    </button>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="text-center mt-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 text-muted">Loading results...</p>
+  </div>
+  <div class="text-center mt-5" *ngIf="!loading && !result">
+    <h3 class="text-danger">Error loading results.</h3>
+    <button (click)="goBack()" class="btn btn-primary mt-3">Back to Exams</button>
+  </div>
+</ng-template>

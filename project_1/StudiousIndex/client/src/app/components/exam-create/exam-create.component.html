@@ -1,0 +1,80 @@
+<div class="container mt-4 mb-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0"><i class="bi bi-file-earmark-plus me-2"></i>Create New Exam</h3>
+            <a routerLink="/" class="btn btn-outline-light btn-sm"><i class="bi bi-arrow-left me-1"></i>Back</a>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label fw-bold">Exam Title</label>
+                        <input type="text" class="form-control" formControlName="title" placeholder="e.g. Midterm Physics">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold">Duration (minutes)</label>
+                        <input type="number" class="form-control" formControlName="durationMinutes" placeholder="60">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Description</label>
+                    <textarea class="form-control" formControlName="description" rows="3" placeholder="Enter exam instructions..."></textarea>
+                </div>
+
+                <hr>
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-secondary"><i class="bi bi-list-ol me-2"></i>Questions</h4>
+                    <button type="button" class="btn btn-success" (click)="addQuestion()">
+                        <i class="bi bi-plus-lg me-1"></i>Add Question
+                    </button>
+                </div>
+
+                <div formArrayName="questions">
+                    <div *ngFor="let question of questions.controls; let i=index" [formGroupName]="i" class="card mb-4 border-primary">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-primary">Question {{i+1}}</span>
+                            <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeQuestion(i)">
+                                <i class="bi bi-trash"></i> Remove
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-9">
+                                    <label class="form-label">Question Text</label>
+                                    <input type="text" class="form-control" formControlName="text" placeholder="Enter question text">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Marks</label>
+                                    <input type="number" class="form-control" formControlName="marks" placeholder="1">
+                                </div>
+                            </div>
+
+                            <label class="form-label fw-bold">Options</label>
+                            <div formArrayName="options">
+                                <div *ngFor="let option of getOptions(i).controls; let j=index" [formGroupName]="j" class="input-group mb-2">
+                                    <div class="input-group-text bg-white">
+                                        <input class="form-check-input mt-0" type="checkbox" formControlName="isCorrect" title="Mark as correct answer">
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="text" placeholder="Option {{j+1}}">
+                                    <button class="btn btn-outline-secondary" type="button" (click)="removeOption(i, j)">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-secondary mt-2" (click)="addOption(i)">
+                                <i class="bi bi-plus"></i> Add Option
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg" [disabled]="!examForm.valid">
+                        <i class="bi bi-check-circle me-2"></i>Create Exam
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

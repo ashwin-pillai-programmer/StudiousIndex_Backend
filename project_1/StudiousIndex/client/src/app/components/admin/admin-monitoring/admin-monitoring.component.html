@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Exam Monitoring (Student Attempts)</h2>
+    
+    <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="!loading">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Exam Title</th>
+                        <th>Score</th>
+                        <th>Attempt Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let attempt of attempts">
+                        <td>{{ attempt.studentName }}</td>
+                        <td>{{ attempt.examTitle }}</td>
+                        <td><span class="badge bg-primary">{{ attempt.score }}</span></td>
+                        <td>{{ attempt.attemptDate | date:'medium' }}</td>
+                    </tr>
+                    <tr *ngIf="attempts.length === 0">
+                        <td colspan="4" class="text-center">No attempts found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

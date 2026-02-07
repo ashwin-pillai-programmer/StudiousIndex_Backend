@@ -1,0 +1,64 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Admin Dashboard</h2>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!loading" class="row g-4">
+    <!-- Total Users -->
+    <div class="col-md-4">
+      <div class="card bg-primary text-white h-100">
+        <div class="card-body">
+          <h5 class="card-title">Total Users</h5>
+          <h1 class="display-4 fw-bold">{{ stats.totalUsers }}</h1>
+          <p class="card-text">
+            Students: {{ stats.totalStudents }} | Teachers: {{ stats.totalTeachers }}
+          </p>
+          <a routerLink="/admin/users" class="btn btn-light btn-sm text-primary fw-bold">Manage Users</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Exams -->
+    <div class="col-md-4">
+      <div class="card bg-success text-white h-100">
+        <div class="card-body">
+          <h5 class="card-title">Total Exams</h5>
+          <h1 class="display-4 fw-bold">{{ stats.totalExams }}</h1>
+          <p class="card-text">Created by teachers</p>
+          <a routerLink="/admin/exams" class="btn btn-light btn-sm text-success fw-bold">Manage Exams</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Attempts -->
+    <div class="col-md-4">
+      <div class="card bg-info text-white h-100">
+        <div class="card-body">
+          <h5 class="card-title">Total Attempts</h5>
+          <h1 class="display-4 fw-bold">{{ stats.totalAttempts }}</h1>
+          <p class="card-text">Student submissions</p>
+          <a routerLink="/admin/monitoring" class="btn btn-light btn-sm text-info fw-bold">View Monitoring</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <h4>Quick Actions</h4>
+    <div class="d-flex gap-2">
+        <a routerLink="/admin/users" class="btn btn-outline-primary">
+            <i class="bi bi-people"></i> View All Users
+        </a>
+        <a routerLink="/admin/exams" class="btn btn-outline-success">
+            <i class="bi bi-file-earmark-text"></i> Manage Exams
+        </a>
+        <a routerLink="/admin/monitoring" class="btn btn-outline-info">
+            <i class="bi bi-graph-up"></i> Monitor Attempts
+        </a>
+    </div>
+  </div>
+</div>

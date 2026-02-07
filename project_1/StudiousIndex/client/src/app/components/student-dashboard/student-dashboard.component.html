@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white rounded shadow-sm">
+    <h2 class="mb-0 text-primary"><i class="bi bi-mortarboard-fill me-2"></i>Student Dashboard</h2>
+    <div>
+      <a routerLink="/exams/history" class="btn btn-outline-primary">
+        <i class="bi bi-clock-history me-1"></i>My Exam History
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && exams.length === 0" class="text-center mt-5">
+    <div class="display-1 text-muted"><i class="bi bi-journal-x"></i></div>
+    <h3 class="text-muted mt-3">No exams available currently.</h3>
+    <p class="text-muted">Please check back later.</p>
+  </div>
+
+  <div class="row" *ngIf="!loading && exams.length > 0">
+    <div class="col-md-4 mb-4" *ngFor="let exam of exams">
+      <div class="card h-100 shadow-sm border-0 hover-card">
+        <div class="card-header bg-white border-bottom-0 pt-3">
+            <h5 class="card-title text-primary mb-0">{{ exam.title }}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text text-muted small">{{ exam.description }}</p>
+          <div class="d-flex justify-content-between mt-3">
+              <span class="badge bg-light text-dark border"><i class="bi bi-clock me-1"></i>{{ exam.durationMinutes }} mins</span>
+              <span class="badge bg-light text-dark border"><i class="bi bi-question-circle me-1"></i>{{ exam.questionCount }} Qs</span>
+          </div>
+          <div class="mt-3 small text-muted">
+            <i class="bi bi-person-circle me-1"></i>Instructor: {{ exam.createdBy }}
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0 pb-3">
+          <button class="btn btn-primary w-100" [routerLink]="['/exams', exam.id]">
+            <i class="bi bi-pencil-square me-1"></i>View Details & Start
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

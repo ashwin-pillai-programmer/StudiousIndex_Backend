@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">StudiousIndex</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Admin'">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin Panel</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Teacher'">
+          <a class="nav-link" routerLink="/teacher/dashboard" routerLinkActive="active">Teacher Dashboard</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Student'">
+          <a class="nav-link" routerLink="/student/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Student'">
+          <a class="nav-link" routerLink="/exams/history" routerLinkActive="active">My History</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
+          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" style="cursor: pointer;" (click)="logout()">Logout ({{authService.getUserRole()}})</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

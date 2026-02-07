@@ -1,0 +1,56 @@
+<div class="container mt-5" *ngIf="exam">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h2 class="mb-0 fw-bold"><i class="bi bi-journal-text me-2"></i>{{ exam.title }}</h2>
+        </div>
+        <div class="card-body p-5">
+          <h5 class="text-muted text-uppercase small ls-1 mb-3">Instructions</h5>
+          <p class="lead mb-4">{{ exam.description }}</p>
+
+          <div class="row g-4 mb-5">
+            <div class="col-sm-6">
+              <div class="p-3 border rounded bg-light d-flex align-items-center">
+                <i class="bi bi-clock fs-2 text-primary me-3"></i>
+                <div>
+                  <h6 class="mb-0 text-muted">Duration</h6>
+                  <h4 class="mb-0 fw-bold">{{ exam.durationMinutes }} Minutes</h4>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="p-3 border rounded bg-light d-flex align-items-center">
+                <i class="bi bi-question-circle fs-2 text-primary me-3"></i>
+                <div>
+                  <h6 class="mb-0 text-muted">Questions</h6>
+                  <h4 class="mb-0 fw-bold">{{ exam.questionCount || exam.questions.length }} Questions</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-warning d-flex align-items-center mb-4" role="alert">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2 fs-4"></i>
+            <div>
+              <strong>Important:</strong> Once you start the exam, the timer will begin. Do not refresh the page or close the browser window.
+            </div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button *ngIf="role === 'Student'" class="btn btn-success btn-lg py-3 fw-bold text-uppercase" (click)="startExam()">
+              <i class="bi bi-play-circle-fill me-2"></i>Start Exam Now
+            </button>
+            <div *ngIf="role !== 'Student'" class="alert alert-info text-center">
+                <i class="bi bi-info-circle me-2"></i> Only students can attempt exams.
+            </div>
+            <a routerLink="/" class="btn btn-outline-secondary">Back to List</a>
+          </div>
+        </div>
+        <div class="card-footer bg-light text-center py-3">
+          <small class="text-muted">Created by {{ exam.createdBy }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

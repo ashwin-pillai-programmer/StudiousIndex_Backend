@@ -1,0 +1,70 @@
+<div class="container mt-4 mb-5" *ngIf="exam">
+  <!-- Exam Taking View -->
+  <div *ngIf="score === null">
+    <div class="card shadow-sm mb-4">
+      <div class="card-body border-start border-5 border-primary">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h2 class="card-title text-primary mb-1">{{ exam.title }}</h2>
+            <p class="text-muted mb-2">{{ exam.description }}</p>
+          </div>
+          <div class="text-end">
+            <span class="badge bg-danger fs-5 mb-1 d-block"><i class="bi bi-alarm me-1"></i>{{ displayTime }}</span>
+            <span class="badge bg-light text-dark border d-block"><i class="bi bi-question-circle me-1"></i>{{ exam.questions.length }} Questions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <div *ngFor="let question of exam.questions; let i = index" class="card mb-4 shadow-sm">
+      <div class="card-header bg-white border-bottom-0 pt-3">
+        <div class="d-flex justify-content-between">
+          <h5 class="fw-bold">Question {{ i+1 }}</h5>
+          <span class="badge bg-secondary">{{ question.marks }} Marks</span>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <p class="lead mb-3">{{ question.text }}</p>
+        
+        <div class="list-group">
+          <label *ngFor="let option of question.options" class="list-group-item list-group-item-action d-flex align-items-center cursor-pointer">
+            <input class="form-check-input me-3" type="radio" [name]="'q'+question.id" [value]="option.id" [(ngModel)]="answers[question.id]">
+            <span class="form-check-label w-100 stretched-link" style="cursor: pointer;">
+              {{ option.text }}
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5">
+      <button class="btn btn-primary btn-lg px-5" (click)="submit()">
+        <i class="bi bi-send-check me-2"></i>Submit Exam
+      </button>
+    </div>
+  </div>
+
+  <!-- Result View -->
+  <div *ngIf="score !== null" class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="card shadow-lg text-center p-5 border-0" style="max-width: 500px; width: 100%;">
+      <div class="card-body">
+        <div class="mb-4 text-success display-1">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h2 class="mb-3">Exam Submitted!</h2>
+        <p class="text-muted mb-4">You have successfully completed the exam.</p>
+        
+        <div class="bg-light p-4 rounded-3 mb-4">
+          <h5 class="text-secondary text-uppercase small ls-1">Your Score</h5>
+          <div class="display-4 fw-bold text-primary">
+            {{ score }} <span class="fs-4 text-muted">/ {{ totalMarks }}</span>
+          </div>
+        </div>
+        
+        <button class="btn btn-outline-primary btn-lg w-100" (click)="goBack()">
+          <i class="bi bi-arrow-left me-2"></i>Back to Exams
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

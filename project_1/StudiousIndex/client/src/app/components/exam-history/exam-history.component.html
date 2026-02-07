@@ -1,0 +1,50 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white d-flex align-items-center">
+      <h3 class="mb-0"><i class="bi bi-clock-history me-2"></i>My Exam History</h3>
+    </div>
+    <div class="card-body">
+      <div *ngIf="history.length === 0" class="text-center py-5">
+        <div class="display-1 text-muted mb-3"><i class="bi bi-journal-x"></i></div>
+        <h4>No exams attempted yet.</h4>
+        <p class="text-muted">Go to the exams page to start your first exam!</p>
+      </div>
+
+      <div *ngIf="history.length > 0" class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Exam Title</th>
+              <th>Date Taken</th>
+              <th>Score</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of history">
+              <td class="fw-bold">{{ item.examTitle }}</td>
+              <td>{{ item.submittedAt | date:'medium' }}</td>
+              <td>
+                <span class="fs-5 fw-bold" [ngClass]="{'text-success': (item.score / item.totalMarks) >= 0.5, 'text-danger': (item.score / item.totalMarks) < 0.5}">
+                  {{ item.score }}
+                </span> 
+                <span class="text-muted small">/ {{ item.totalMarks }}</span>
+              </td>
+              <td>
+                <span class="badge" [ngClass]="{'bg-success': (item.score / item.totalMarks) >= 0.5, 'bg-warning': (item.score / item.totalMarks) < 0.5}">
+                  {{ (item.score / item.totalMarks) >= 0.5 ? 'Pass' : 'Fail' }}
+                </span>
+              </td>
+              <td>
+                <a [routerLink]="['/exams/attempts', item.id, 'result']" class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-eye"></i> View Details
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
