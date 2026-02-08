@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ExamListComponent } from './components/exam-list/exam-list.component';
 import { ExamCreateComponent } from './components/exam-create/exam-create.component';
 import { ExamDetailComponent } from './components/exam-detail/exam-detail.component';
@@ -21,9 +23,11 @@ import { TeacherMonitoringComponent } from './components/teacher/teacher-monitor
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
 
 export const routes: Routes = [
-  { path: '', component: ExamListComponent, canActivate: [authGuard] },
+  { path: '', component: HomeComponent },
+  { path: 'exams', component: ExamListComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   
   // Student Routes
   { 

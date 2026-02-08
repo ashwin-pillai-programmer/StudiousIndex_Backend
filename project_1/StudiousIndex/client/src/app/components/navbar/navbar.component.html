@@ -1,38 +1,47 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">StudiousIndex</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
+<nav class="si-navbar navbar navbar-expand-lg">
+  <div class="si-navbar-inner">
+    <a class="si-navbar-brand" routerLink="/">
+      <span class="si-navbar-brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+      <span class="si-navbar-brand-text">StudiousIndex</span>
+    </a>
+
+    <button class="si-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Admin'">
-          <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin Panel</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Teacher'">
-          <a class="nav-link" routerLink="/teacher/dashboard" routerLinkActive="active">Teacher Dashboard</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Student'">
-          <a class="nav-link" routerLink="/student/dashboard" routerLinkActive="active">Dashboard</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Student'">
-          <a class="nav-link" routerLink="/exams/history" routerLinkActive="active">My History</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-        </li>
-        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
-          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link" style="cursor: pointer;" (click)="logout()">Logout ({{authService.getUserRole()}})</a>
-        </li>
-      </ul>
+
+    <div class="collapse navbar-collapse si-navbar-collapse" id="navbarNav">
+      <div class="si-navbar-right-group">
+        <ul class="si-navbar-nav">
+          <li class="si-nav-item">
+            <a class="si-nav-link si-nav-btn" routerLink="/" routerLinkActive="si-nav-link-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+          </li>
+          <li class="si-nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Admin'">
+            <a class="si-nav-link si-nav-btn" routerLink="/admin" routerLinkActive="si-nav-link-active">Admin Panel</a>
+          </li>
+          <li class="si-nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Teacher'">
+            <a class="si-nav-link si-nav-btn" routerLink="/teacher/dashboard" routerLinkActive="si-nav-link-active">Teacher Dashboard</a>
+          </li>
+          <li class="si-nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Student'">
+            <a class="si-nav-link si-nav-btn" routerLink="/student/dashboard" routerLinkActive="si-nav-link-active">Dashboard</a>
+          </li>
+          <li class="si-nav-item" *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Student'">
+            <a class="si-nav-link si-nav-btn" routerLink="/exams/history" routerLinkActive="si-nav-link-active">My History</a>
+          </li>
+        </ul>
+        <ul class="si-navbar-nav">
+          <li class="si-nav-item" *ngIf="!authService.isLoggedIn()">
+            <a class="si-nav-link si-nav-btn" routerLink="/login" routerLinkActive="si-nav-link-active">Login</a>
+          </li>
+          <li class="si-nav-item" *ngIf="!authService.isLoggedIn()">
+            <a class="si-nav-link si-nav-btn si-nav-link-cta" routerLink="/register" routerLinkActive="si-nav-link-active">Register</a>
+          </li>
+          <li class="si-nav-item" *ngIf="authService.isLoggedIn()">
+            <a class="si-nav-link si-nav-btn si-nav-link-logout" (click)="logout()">Logout ({{ authService.getUserRole() }})</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

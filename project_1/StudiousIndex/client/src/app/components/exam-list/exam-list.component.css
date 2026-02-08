@@ -1,0 +1,51 @@
+/* ===== Exam List — Themed ===== */
+.si-exam-list .si-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--si-bg-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--si-bg-glass-border);
+  border-radius: var(--si-radius);
+  box-shadow: var(--si-shadow-sm);
+  transition: box-shadow var(--si-transition);
+}
+
+.si-exam-list .si-page-header:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.1);
+}
+
+.si-exam-list .si-page-header h2 {
+  color: var(--si-text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.si-role-badge {
+  background: rgba(99, 102, 241, 0.25) !important;
+  color: var(--si-primary-light) !important;
+  font-weight: 600;
+  padding: 0.5em 0.85em;
+}
+
+.si-exam-list .si-exam-card .card-title {
+  color: #334155;
+  font-weight: 700;
+}
+
+.si-exam-list .si-badge {
+  background: rgba(99, 102, 241, 0.12) !important;
+  color: var(--si-primary-dark) !important;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  font-weight: 600;
+}
+
+.si-empty-state .si-empty-icon {
+  font-size: 4rem;
+  color: var(--si-text-muted);
+  opacity: 0.8;
+}

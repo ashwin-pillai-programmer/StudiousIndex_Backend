@@ -1,0 +1,76 @@
+/* ===== Admin Dashboard — Themed stat cards ===== */
+.si-admin-dashboard .si-page-header {
+  padding: 1.25rem 1.5rem;
+  background: var(--si-bg-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--si-bg-glass-border);
+  border-radius: var(--si-radius);
+  box-shadow: var(--si-shadow-sm);
+}
+
+.si-admin-dashboard .si-page-header h2 {
+  color: var(--si-text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.si-stat-card {
+  border: none;
+  color: #fff;
+  border-radius: var(--si-radius);
+  overflow: hidden;
+  transition: transform var(--si-transition), box-shadow var(--si-transition);
+}
+
+.si-stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.si-stat-primary {
+  background: var(--si-gradient-primary);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+}
+
+.si-stat-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+}
+
+.si-stat-info {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.35);
+}
+
+.si-stat-card .card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.si-stat-card .display-4 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.si-stat-btn {
+  border-radius: 8px;
+  padding: 0.4em 0.9em;
+  transition: transform var(--si-transition-fast), box-shadow var(--si-transition-fast);
+}
+
+.si-stat-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.si-quick-actions h4 {
+  color: var(--si-text-primary);
+  font-weight: 700;
+}
+
+.si-quick-actions .btn-outline-primary {
+  border-width: 2px;
+  font-weight: 600;
+}

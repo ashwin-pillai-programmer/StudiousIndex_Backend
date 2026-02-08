@@ -15,11 +15,15 @@ export class LoginComponent {
   email = '';
   password = '';
   error = '';
+  isLoading = false;
   
   authService = inject(AuthService);
   router = inject(Router);
 
   login() {
+    this.isLoading = true;
+    this.error = '';
+    
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (res) => {
         const role = this.authService.getUserRole();
@@ -32,6 +36,7 @@ export class LoginComponent {
         } else {
           this.router.navigate(['/']);
         }
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Login error:', err);
@@ -42,6 +47,7 @@ export class LoginComponent {
         } else {
             this.error = `Login failed. Status: ${err.status}. Server error or network issue.`;
         }
+        this.isLoading = false;
       }
     });
   }
