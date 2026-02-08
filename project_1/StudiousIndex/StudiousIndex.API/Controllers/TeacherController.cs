@@ -215,10 +215,10 @@ namespace StudiousIndex.API.Controllers
         {
             var userId = GetCurrentUserId();
             var attempts = await _context.StudentExams
-                .Include(r => r.Exam)
+                .Include(r => r.Exam!)
                 .ThenInclude(e => e.Questions)
                 .Include(r => r.Student)
-                .Where(r => r.Exam.CreatedByUserId == userId && r.IsCompleted)
+                .Where(r => r.Exam!.CreatedByUserId == userId && r.IsCompleted)
                 .OrderByDescending(r => r.SubmitTime)
                 .ToListAsync();
 

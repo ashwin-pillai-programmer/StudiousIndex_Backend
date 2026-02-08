@@ -17,14 +17,19 @@ export class RegisterComponent {
   password = '';
   role = 'Student'; // Default
   error = '';
+  isLoading = false;
 
   authService = inject(AuthService);
   router = inject(Router);
 
   register() {
+    this.isLoading = true;
+    this.error = '';
+    
     const data = { fullName: this.fullName, email: this.email, password: this.password, role: this.role };
     this.authService.register(data).subscribe({
       next: () => {
+        this.isLoading = false;
         this.router.navigate(['/login']);
       },
       error: (err) => {
@@ -67,6 +72,7 @@ export class RegisterComponent {
         } else {
           this.error = 'Registration failed. Please try again.';
         }
+        this.isLoading = false;
       }
     });
   }

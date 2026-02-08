@@ -59,8 +59,8 @@ namespace StudiousIndex.API.Controllers
                 userDtos.Add(new UserListDto
                 {
                     Id = user.Id,
-                    FullName = user.FullName,
-                    Email = user.Email,
+                    FullName = user.FullName ?? "Unknown",
+                    Email = user.Email ?? "Unknown",
                     Role = roles.FirstOrDefault() ?? "None",
                     IsActive = user.IsActive
                 });

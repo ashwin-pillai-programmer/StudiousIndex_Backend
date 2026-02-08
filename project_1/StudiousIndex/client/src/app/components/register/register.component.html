@@ -1,54 +1,117 @@
-<div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
-  <div class="col-md-6">
-    <div class="card shadow-lg">
-      <div class="card-header text-center bg-success text-white">
-        <h3><i class="bi bi-person-plus-fill me-2"></i>Register</h3>
+<div class="register-container">
+  <div class="register-card fade-in-up">
+    <div class="card-header-custom">
+      <div class="header-icon">
+        <i class="bi bi-person-plus-fill"></i>
       </div>
-      <div class="card-body p-4">
-        <div *ngIf="error" class="alert alert-danger d-flex align-items-center">
-          <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+      <h3>StudiousIndex</h3>
+      <p>Create an account to get started!</p>
+    </div>
+    
+    <div class="card-body-custom">
+      <div *ngIf="error" class="alert alert-danger d-flex align-items-center mb-4 fade-in" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <div>{{ error }}</div>
+      </div>
+
+      <form (ngSubmit)="registerForm.form.valid && register()" #registerForm="ngForm" novalidate>
+        
+        <!-- Full Name -->
+        <div class="mb-3">
+          <label class="form-label" for="fullName">Full Name <span class="required-star">*</span></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="fullName" 
+              [(ngModel)]="fullName" 
+              name="fullName" 
+              required 
+              minlength="3"
+              #fullNameInput="ngModel"
+              [class.is-invalid]="fullNameInput.invalid && (fullNameInput.dirty || fullNameInput.touched)"
+              placeholder="Enter your full name">
+          </div>
+          <div *ngIf="fullNameInput.invalid && (fullNameInput.dirty || fullNameInput.touched)" class="text-danger-custom fade-in">
+            <div *ngIf="fullNameInput.errors?.['required']"><i class="bi bi-exclamation-circle me-1"></i>Full Name is required.</div>
+            <div *ngIf="fullNameInput.errors?.['minlength']"><i class="bi bi-exclamation-circle me-1"></i>Name must be at least 3 characters long.</div>
+          </div>
         </div>
-        <form (ngSubmit)="register()">
-          <div class="mb-3">
-            <label class="form-label fw-bold">Full Name</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-person"></i></span>
-              <input type="text" class="form-control" [(ngModel)]="fullName" name="fullName" required placeholder="John Doe">
-            </div>
+
+        <!-- Email Address -->
+        <div class="mb-3">
+          <label class="form-label" for="email">Email Address <span class="required-star">*</span></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input 
+              type="email" 
+              class="form-control" 
+              id="email" 
+              [(ngModel)]="email" 
+              name="email" 
+              required 
+              email
+              #emailInput="ngModel"
+              [class.is-invalid]="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+              placeholder="Enter your email address">
           </div>
-          <div class="mb-3">
-            <label class="form-label fw-bold">Email Address</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-              <input type="email" class="form-control" [(ngModel)]="email" name="email" required placeholder="name@example.com">
-            </div>
+          <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="text-danger-custom fade-in">
+            <div *ngIf="emailInput.errors?.['required']"><i class="bi bi-exclamation-circle me-1"></i>Email is required.</div>
+            <div *ngIf="emailInput.errors?.['email']"><i class="bi bi-exclamation-circle me-1"></i>Please enter a valid email address.</div>
           </div>
-          <div class="mb-3">
-            <label class="form-label fw-bold">Password</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-lock"></i></span>
-              <input type="password" class="form-control" [(ngModel)]="password" name="password" required placeholder="********">
-            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label class="form-label" for="password">Password <span class="required-star">*</span></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="password" 
+              [(ngModel)]="password" 
+              name="password" 
+              required 
+              minlength="6"
+              #passwordInput="ngModel"
+              [class.is-invalid]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+              placeholder="Enter your password">
           </div>
-          <div class="mb-4">
-            <label class="form-label fw-bold">Role</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-              <select class="form-select" [(ngModel)]="role" name="role">
-                <option value="Student">Student</option>
-                <option value="Teacher">Teacher</option>
-                <option value="Admin">Admin</option>
-              </select>
-            </div>
+          <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-danger-custom fade-in">
+            <div *ngIf="passwordInput.errors?.['required']"><i class="bi bi-exclamation-circle me-1"></i>Password is required.</div>
+            <div *ngIf="passwordInput.errors?.['minlength']"><i class="bi bi-exclamation-circle me-1"></i>Password must be at least 6 characters long.</div>
           </div>
-          <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-success btn-lg">Register</button>
+        </div>
+
+        <!-- Role Selection -->
+        <div class="mb-4">
+          <label class="form-label" for="role">I am a <span class="required-star">*</span></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+            <select class="form-select" id="role" [(ngModel)]="role" name="role">
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
+              <option value="Admin">Admin</option>
+            </select>
           </div>
-          <div class="text-center mt-3">
-            <p class="mb-0">Already have an account? <a routerLink="/login" class="text-decoration-none">Login here</a></p>
-          </div>
-        </form>
-      </div>
+        </div>
+
+        <!-- Register Button -->
+        <div class="d-grid gap-2 mb-4">
+          <button type="submit" class="btn btn-success-custom text-white" [disabled]="registerForm.invalid || isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            <span *ngIf="!isLoading">Register</span>
+            <span *ngIf="isLoading">Creating Account...</span>
+          </button>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center">
+          <p class="mb-0 text-muted">Already have an account? <a routerLink="/login" class="login-link">Login here</a></p>
+        </div>
+      </form>
     </div>
   </div>
 </div>

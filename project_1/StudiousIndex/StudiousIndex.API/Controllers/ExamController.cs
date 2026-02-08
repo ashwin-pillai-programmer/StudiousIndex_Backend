@@ -185,7 +185,7 @@ namespace StudiousIndex.API.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
             var attempt = await _context.StudentExams
-                .Include(se => se.Exam)
+                .Include(se => se.Exam!)
                 .ThenInclude(e => e.Questions)
                 .ThenInclude(q => q.Options)
                 .FirstOrDefaultAsync(se => se.Id == submission.AttemptId && se.StudentId == userId);
@@ -196,7 +196,9 @@ namespace StudiousIndex.API.Controllers
             int score = 0;
             int totalMarks = 0;
             
-            foreach(var question in attempt.Exam!.Questions)
+            if (attempt.Exam == null) return StatusCode(500, "Exam data missing.");
+
+            foreach(var question in attempt.Exam.Questions)
             {
                 totalMarks += question.Marks;
                 var userAnswer = submission.Answers.FirstOrDefault(a => a.QuestionId == question.Id);
