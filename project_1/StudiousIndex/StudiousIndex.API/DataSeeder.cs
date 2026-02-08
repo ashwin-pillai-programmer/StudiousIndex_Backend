@@ -76,13 +76,23 @@ namespace StudiousIndex.API
                     Email = studentEmail,
                     FullName = "Default Student",
                     IsActive = true,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    PhoneNumber = "8422939033" // Default phone number for testing
                 };
 
                 var createResult = await userManager.CreateAsync(student, "Student@123");
                 if (createResult.Succeeded)
                 {
                     await userManager.AddToRoleAsync(student, "Student");
+                }
+            }
+            else
+            {
+                // Ensure existing student has the test phone number
+                if (string.IsNullOrEmpty(studentUser.PhoneNumber))
+                {
+                    studentUser.PhoneNumber = "8422939033";
+                    await userManager.UpdateAsync(studentUser);
                 }
             }
         }

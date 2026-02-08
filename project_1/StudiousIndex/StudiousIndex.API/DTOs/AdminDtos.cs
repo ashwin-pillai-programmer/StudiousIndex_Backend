@@ -11,16 +11,16 @@ namespace StudiousIndex.API.DTOs
 
     public class UserListDto
     {
-        public string Id { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string Role { get; set; }
+        public required string Id { get; set; }
+        public required string FullName { get; set; }
+        public required string Email { get; set; }
+        public required string Role { get; set; }
         public bool IsActive { get; set; }
     }
 
     public class UpdateUserRoleDto
     {
-        public string Role { get; set; } // "Admin", "Teacher", "Student"
+        public required string Role { get; set; } // "Admin", "Teacher", "Student"
     }
 
     public class UpdateUserStatusDto
