@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ashwin\\Documents\\project_1\\StudiousIndex\\StudiousIndex.Domain\\StudiousIndex.Domain.csproj": {}
+    "C:\\Users\\Ashwin\\Documents\\GitHub\\ashwin-pillai-programmer\\project_1\\StudiousIndex\\StudiousIndex.Domain\\StudiousIndex.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ashwin\\Documents\\project_1\\StudiousIndex\\StudiousIndex.Domain\\StudiousIndex.Domain.csproj": {
+    "C:\\Users\\Ashwin\\Documents\\GitHub\\ashwin-pillai-programmer\\project_1\\StudiousIndex\\StudiousIndex.Domain\\StudiousIndex.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ashwin\\Documents\\project_1\\StudiousIndex\\StudiousIndex.Domain\\StudiousIndex.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Ashwin\\Documents\\GitHub\\ashwin-pillai-programmer\\project_1\\StudiousIndex\\StudiousIndex.Domain\\StudiousIndex.Domain.csproj",
         "projectName": "StudiousIndex.Domain",
-        "projectPath": "C:\\Users\\Ashwin\\Documents\\project_1\\StudiousIndex\\StudiousIndex.Domain\\StudiousIndex.Domain.csproj",
+        "projectPath": "C:\\Users\\Ashwin\\Documents\\GitHub\\ashwin-pillai-programmer\\project_1\\StudiousIndex\\StudiousIndex.Domain\\StudiousIndex.Domain.csproj",
         "packagesPath": "C:\\Users\\Ashwin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ashwin\\Documents\\project_1\\StudiousIndex\\StudiousIndex.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Ashwin\\Documents\\GitHub\\ashwin-pillai-programmer\\project_1\\StudiousIndex\\StudiousIndex.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

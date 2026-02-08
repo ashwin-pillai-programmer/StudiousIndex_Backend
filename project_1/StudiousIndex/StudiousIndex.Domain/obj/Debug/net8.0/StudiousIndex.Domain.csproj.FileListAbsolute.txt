@@ -10,3 +10,16 @@ C:\Users\Ashwin\Documents\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug
 C:\Users\Ashwin\Documents\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\refint\StudiousIndex.Domain.dll
 C:\Users\Ashwin\Documents\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.pdb
 C:\Users\Ashwin\Documents\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\ref\StudiousIndex.Domain.dll
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\bin\Debug\net8.0\StudiousIndex.Domain.deps.json
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\bin\Debug\net8.0\StudiousIndex.Domain.dll
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\bin\Debug\net8.0\StudiousIndex.Domain.pdb
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.csproj.AssemblyReference.cache
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.AssemblyInfoInputs.cache
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.AssemblyInfo.cs
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.sourcelink.json
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.dll
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\refint\StudiousIndex.Domain.dll
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\StudiousIndex.Domain.pdb
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Domain\obj\Debug\net8.0\ref\StudiousIndex.Domain.dll

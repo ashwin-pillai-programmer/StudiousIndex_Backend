@@ -10,11 +10,11 @@ namespace StudiousIndex.Data
         {
         }
 
-        public DbSet<Exam> Exams { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<Option> Options { get; set; }
-        public DbSet<StudentExam> StudentExams { get; set; }
-        public DbSet<StudentExamAnswer> StudentExamAnswers { get; set; }
+        public DbSet<Exam> Exams { get; set; } = null!;
+        public DbSet<Question> Questions { get; set; } = null!;
+        public DbSet<Option> Options { get; set; } = null!;
+        public DbSet<StudentExam> StudentExams { get; set; } = null!;
+        public DbSet<StudentExamAnswer> StudentExamAnswers { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
