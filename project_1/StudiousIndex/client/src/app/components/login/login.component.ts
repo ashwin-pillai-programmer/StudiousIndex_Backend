@@ -26,7 +26,10 @@ export class LoginComponent {
     
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (res) => {
+        console.log('Login response', res);
         const role = this.authService.getUserRole();
+        console.log('Stored role:', role);
+        console.log('Token:', this.authService.getToken());
         if (role === 'Teacher') {
           this.router.navigate(['/teacher/dashboard']);
         } else if (role === 'Admin') {

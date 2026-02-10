@@ -292,3 +292,7 @@ C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousInde
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.API\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.API\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.API\bin\Debug\net8.0\Twilio.dll
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.API\bin\Debug\net8.0\verify_body.json
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.API\bin\Debug\net8.0\login_body.json
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.API\bin\Debug\net8.0\login_test_body.json
+C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.API\bin\Debug\net8.0\register_body.json

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudiousIndex.Data")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+795f4fda36b86070d53561bfd6e9fa1b38b35432")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79993c8df62700e07a26faeb222e562271d18495")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudiousIndex.Data")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudiousIndex.Data")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

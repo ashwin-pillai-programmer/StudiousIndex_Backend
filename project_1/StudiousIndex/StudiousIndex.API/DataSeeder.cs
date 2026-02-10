@@ -20,79 +20,52 @@ namespace StudiousIndex.API
                 }
             }
 
-            // Create Admin User
-            var adminEmail = "admin@studiousindex.com";
-            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            await EnsureUserAsync(userManager, "admin@studiousindex.com", "System Admin", "Admin@123", "Admin");
+            await EnsureUserAsync(userManager, "teacher@studiousindex.com", "Default Teacher", "Teacher@123", "Teacher");
+            await EnsureUserAsync(userManager, "student@studiousindex.com", "Default Student", "Student@123", "Student", "8422939033");
+        }
 
-            if (adminUser == null)
+        private static async Task EnsureUserAsync(UserManager<ApplicationUser> userManager, string email, string fullName, string password, string role, string? phoneNumber = null)
+        {
+            Console.WriteLine($"Seeding user: {email}...");
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
             {
-                var admin = new ApplicationUser
+                user = new ApplicationUser
                 {
-                    UserName = adminEmail,
-                    Email = adminEmail,
-                    FullName = "System Admin",
-                    IsActive = true,
-                    EmailConfirmed = true
-                };
-
-                var createResult = await userManager.CreateAsync(admin, "Admin@123");
-                if (createResult.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(admin, "Admin");
-                }
-            }
-
-            // Create Teacher User
-            var teacherEmail = "teacher@studiousindex.com";
-            var teacherUser = await userManager.FindByEmailAsync(teacherEmail);
-
-            if (teacherUser == null)
-            {
-                var teacher = new ApplicationUser
-                {
-                    UserName = teacherEmail,
-                    Email = teacherEmail,
-                    FullName = "Default Teacher",
-                    IsActive = true,
-                    EmailConfirmed = true
-                };
-
-                var createResult = await userManager.CreateAsync(teacher, "Teacher@123");
-                if (createResult.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(teacher, "Teacher");
-                }
-            }
-
-            // Create Student User
-            var studentEmail = "student@studiousindex.com";
-            var studentUser = await userManager.FindByEmailAsync(studentEmail);
-
-            if (studentUser == null)
-            {
-                var student = new ApplicationUser
-                {
-                    UserName = studentEmail,
-                    Email = studentEmail,
-                    FullName = "Default Student",
+                    UserName = email,
+                    Email = email,
+                    FullName = fullName,
                     IsActive = true,
                     EmailConfirmed = true,
-                    PhoneNumber = "8422939033" // Default phone number for testing
+                    PhoneNumber = phoneNumber
                 };
 
-                var createResult = await userManager.CreateAsync(student, "Student@123");
+                var createResult = await userManager.CreateAsync(user, password);
                 if (createResult.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(student, "Student");
+                    await userManager.AddToRoleAsync(user, role);
+                    Console.WriteLine($"User {email} created successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Error creating user {email}: {string.Join(", ", createResult.Errors.Select(e => e.Description))}");
                 }
             }
             else
             {
-                // Ensure existing student has the test phone number
-                if (string.IsNullOrEmpty(studentUser.PhoneNumber))
+                // Ensure user is in the correct role
+                if (!await userManager.IsInRoleAsync(user, role))
                 {
-                    studentUser.PhoneNumber = "8422939033";
-                    await userManager.UpdateAsync(studentUser);
+                    await userManager.AddToRoleAsync(user, role);
+                }
+
+                // Update phone number if provided and different
+                if (!string.IsNullOrEmpty(phoneNumber) && user.PhoneNumber != phoneNumber)
+                {
+                    user.PhoneNumber = phoneNumber;
+                    await userManager.UpdateAsync(user);
                 }
             }
         }

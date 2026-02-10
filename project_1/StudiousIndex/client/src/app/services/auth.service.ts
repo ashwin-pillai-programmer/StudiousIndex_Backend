@@ -20,9 +20,14 @@ export class AuthService {
   login(data: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, data).pipe(
       tap(response => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('role', response.role);
+        console.log('AuthService response', response);
+        // API may return PascalCase (Token, Role) or camelCase (token, role)
+        const token = response.token ?? response.Token;
+        const role = response.role ?? response.Role;
+        console.log('Parsed token/role', token, role);
+        if (token) {
+          localStorage.setItem('token', token);
+          localStorage.setItem('role', role ?? 'Student');
           localStorage.setItem('user', JSON.stringify(response));
         }
       })

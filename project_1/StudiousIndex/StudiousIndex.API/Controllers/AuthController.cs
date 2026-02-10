@@ -20,19 +20,23 @@ namespace StudiousIndex.API.Controllers
         private readonly IConfiguration _configuration;
         private readonly ISmsService _smsService;
 
-        // In-memory OTP storage for demonstration (Production should use Redis/Database)
-        private static readonly ConcurrentDictionary<string, string> _otpStore = new();
+        private readonly IWebHostEnvironment _env;
+
+        // In-memory OTP storage: Key=Mobile, Value=OtpEntry
+        private static readonly ConcurrentDictionary<string, (string Otp, DateTime Expiry)> _otpStore = new();
 
         public AuthController(
             UserManager<ApplicationUser> userManager, 
             RoleManager<IdentityRole> roleManager, 
             IConfiguration configuration,
-            ISmsService smsService)
+            ISmsService smsService,
+            IWebHostEnvironment env)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _smsService = smsService;
+            _env = env;
         }
 
         [HttpPost("send-otp")]
@@ -43,22 +47,28 @@ namespace StudiousIndex.API.Controllers
             // Generate 6-digit OTP
             var otp = new Random().Next(100000, 999999).ToString();
             
-            // Store OTP (overwrite existing)
-            _otpStore[model.MobileNumber] = otp;
+            // Store OTP with 2-minute expiry (overwrites existing)
+            _otpStore[model.MobileNumber] = (otp, DateTime.UtcNow.AddMinutes(2));
 
             // Send via SMS Service
             var message = $"Your OTP for StudiousIndex password reset is: {otp}";
             
             // Log OTP to console regardless of SMS success (for easier testing/debugging)
-            Console.WriteLine($"[SendOtp] Generated OTP for {model.MobileNumber}: {otp}");
+            Console.WriteLine($"[SendOtp] Generated OTP for {model.MobileNumber}: {otp} (Expires: {DateTime.UtcNow.AddMinutes(2)})");
             
             // TEMPORARY: Bypass SMS sending for stability/testing
             // var sent = await _smsService.SendSmsAsync(model.MobileNumber, message);
             var sent = true; 
+            await Task.CompletedTask; // Suppress async warning while SMS is bypassed
+
             Console.WriteLine($"[SendOtp] SMS sending bypassed. OTP: {otp}");
 
             if (sent)
             {
+                if (_env.IsDevelopment())
+                {
+                    return Ok(new { Message = "OTP sent successfully.", Otp = otp, Note = "OTP shown only for development/testing" });
+                }
                 return Ok(new { Message = "OTP sent successfully." });
             }
             else
@@ -72,9 +82,18 @@ namespace StudiousIndex.API.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (_otpStore.TryGetValue(model.MobileNumber, out var storedOtp) && storedOtp == model.Otp)
+            if (_otpStore.TryGetValue(model.MobileNumber, out var storedEntry))
             {
-                return Ok(new { Message = "OTP verified successfully." });
+                if (DateTime.UtcNow > storedEntry.Expiry)
+                {
+                    _otpStore.TryRemove(model.MobileNumber, out _); // Cleanup expired
+                    return BadRequest(new { Message = "OTP has expired." });
+                }
+
+                if (storedEntry.Otp == model.Otp)
+                {
+                    return Ok(new { Message = "OTP verified successfully." });
+                }
             }
 
             return BadRequest(new { Message = "Invalid or expired OTP." });
@@ -86,9 +105,20 @@ namespace StudiousIndex.API.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             // Verify OTP again for security
-            if (!_otpStore.TryGetValue(model.MobileNumber, out var storedOtp) || storedOtp != model.Otp)
+            if (!_otpStore.TryGetValue(model.MobileNumber, out var storedEntry))
             {
-                return BadRequest(new { Message = "Invalid or expired OTP." });
+                 return BadRequest(new { Message = "Invalid or expired OTP." });
+            }
+
+            if (DateTime.UtcNow > storedEntry.Expiry)
+            {
+                _otpStore.TryRemove(model.MobileNumber, out _);
+                return BadRequest(new { Message = "OTP has expired." });
+            }
+
+            if (storedEntry.Otp != model.Otp)
+            {
+                return BadRequest(new { Message = "Invalid OTP." });
             }
 
             // Find user by Phone Number (Assuming PhoneNumber is stored in AspNetUsers)
@@ -192,6 +222,13 @@ namespace StudiousIndex.API.Controllers
                 }
 
                 var userRoles = await _userManager.GetRolesAsync(user);
+                // Ensure we have at least one role to prevent token issues
+                if (userRoles == null || !userRoles.Any())
+                {
+                     Console.WriteLine($"[Login] No roles found for user {model.Email}. Assigning default 'Student' role.");
+                     await _userManager.AddToRoleAsync(user, "Student");
+                     userRoles = new List<string> { "Student" };
+                }
 
                 var authClaims = new List<Claim>
                 {
@@ -228,11 +265,20 @@ namespace StudiousIndex.API.Controllers
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+            var jwtKey = _configuration["Jwt:Key"];
+            var jwtIssuer = _configuration["Jwt:Issuer"];
+            var jwtAudience = _configuration["Jwt:Audience"];
+
+            if (string.IsNullOrEmpty(jwtKey) || string.IsNullOrEmpty(jwtIssuer) || string.IsNullOrEmpty(jwtAudience))
+            {
+                throw new InvalidOperationException("JWT Configuration is missing. Please check appsettings.json.");
+            }
+
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
+                issuer: jwtIssuer,
+                audience: jwtAudience,
                 expires: DateTime.Now.AddHours(3),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)

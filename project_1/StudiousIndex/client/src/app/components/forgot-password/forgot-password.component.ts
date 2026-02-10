@@ -20,6 +20,7 @@ export class ForgotPasswordComponent {
   
   error: string = '';
   success: string = '';
+  devOtp: string = ''; // For development mode only
   
   private apiUrl = 'http://localhost:5131/api/Auth';
 
@@ -28,6 +29,7 @@ export class ForgotPasswordComponent {
   sendOtp() {
     this.error = '';
     this.success = '';
+    this.devOtp = '';
     
     if (!this.mobile || this.mobile.length < 10) {
       this.error = 'Please enter a valid mobile number.';
@@ -38,6 +40,12 @@ export class ForgotPasswordComponent {
       next: (res: any) => {
         this.step = 2;
         this.success = res.message || `OTP sent successfully to ${this.mobile}.`;
+        
+        // Handle development mode OTP
+        if (res.otp) {
+          this.devOtp = res.otp;
+          console.log('Development Mode OTP:', res.otp);
+        }
       },
       error: (err) => {
         this.error = err.error?.message || 'Failed to send OTP. Please try again.';
