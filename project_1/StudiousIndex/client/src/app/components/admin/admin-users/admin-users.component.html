@@ -13,6 +13,7 @@
                 <tr>
                     <th>Full Name</th>
                     <th>Email</th>
+                    <th>College</th>
                     <th>Role</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -22,6 +23,7 @@
                 <tr *ngFor="let user of users">
                     <td>{{ user.fullName }}</td>
                     <td>{{ user.email }}</td>
+                    <td>{{ user.collegeName || '-' }}</td>
                     <td>
                         <span class="badge" 
                             [ngClass]="{

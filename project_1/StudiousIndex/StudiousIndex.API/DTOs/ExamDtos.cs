@@ -10,6 +10,10 @@ namespace StudiousIndex.API.DTOs
         
         [Range(1, 180, ErrorMessage = "Duration must be between 1 and 180 minutes")]
         public int DurationMinutes { get; set; }
+
+        public string Grade { get; set; } = string.Empty;
+        public string Board { get; set; } = string.Empty;
+        public DateTime ScheduledDate { get; set; }
         
         [MinLength(1, ErrorMessage = "At least one question is required")]
         public List<CreateQuestionDto> Questions { get; set; } = new();
@@ -40,9 +44,14 @@ namespace StudiousIndex.API.DTOs
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int DurationMinutes { get; set; }
+        public string Grade { get; set; } = string.Empty;
+        public string Board { get; set; } = string.Empty;
+        public DateTime ScheduledDate { get; set; }
         public string CreatedBy { get; set; } = string.Empty;
         public int QuestionCount { get; set; }
         public bool IsApproved { get; set; }
+        public bool IsPracticeEnabled { get; set; }
+        public bool IsExpired { get; set; }
     }
 
     public class ExamDetailDto : ExamDto

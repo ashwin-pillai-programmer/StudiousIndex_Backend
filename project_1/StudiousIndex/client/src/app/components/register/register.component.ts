@@ -15,9 +15,13 @@ export class RegisterComponent {
   fullName = '';
   email = '';
   password = '';
-  role = 'Student'; // Default
+  role = 'Admin'; // Default for first-time admin registration
+  rollNumber = '';
+  dateOfBirth = '';
+  collegeName = '';
   error = '';
   isLoading = false;
+  showPassword = false;
 
   authService = inject(AuthService);
   router = inject(Router);
@@ -26,7 +30,15 @@ export class RegisterComponent {
     this.isLoading = true;
     this.error = '';
     
-    const data = { fullName: this.fullName, email: this.email, password: this.password, role: this.role };
+    const data = { 
+      fullName: this.fullName, 
+      email: this.email, 
+      password: this.password, 
+      role: this.role,
+      rollNumber: this.role === 'Student' ? this.rollNumber : '',
+      dateOfBirth: this.dateOfBirth,
+      collegeName: this.collegeName
+    };
     this.authService.register(data).subscribe({
       next: () => {
         this.isLoading = false;
@@ -75,5 +87,9 @@ export class RegisterComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

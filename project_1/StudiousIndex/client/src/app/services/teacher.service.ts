@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
 
 export interface TeacherDashboardStats {
   totalExams: number;
@@ -43,6 +44,7 @@ export interface CreateOption {
 
 export interface TeacherStudentAttempt {
   attemptId: number;
+  studentId: string;
   studentName: string;
   examTitle: string;
   attemptDate: string;
@@ -55,7 +57,7 @@ export interface TeacherStudentAttempt {
 })
 export class TeacherService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5131/api/teacher';
+  private apiUrl = `${environment.apiUrl}/teacher`;
 
   getDashboardStats(): Observable<TeacherDashboardStats> {
     return this.http.get<TeacherDashboardStats>(`${this.apiUrl}/dashboard`);

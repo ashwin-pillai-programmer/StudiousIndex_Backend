@@ -2,29 +2,28 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5131/api/Auth';
+  private apiUrl = environment.apiUrl;
   private http = inject(HttpClient);
   private router = inject(Router);
 
   constructor() { }
 
-  register(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data);
+  register(data: any): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/Auth/register`, data);
   }
 
   login(data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, data).pipe(
+    return this.http.post<any>(`${this.apiUrl}/Auth/login`, data).pipe(
       tap(response => {
-        console.log('AuthService response', response);
-        // API may return PascalCase (Token, Role) or camelCase (token, role)
+        console.log('AuthService login response', response);
         const token = response.token ?? response.Token;
         const role = response.role ?? response.Role;
-        console.log('Parsed token/role', token, role);
         if (token) {
           localStorage.setItem('token', token);
           localStorage.setItem('role', role ?? 'Student');

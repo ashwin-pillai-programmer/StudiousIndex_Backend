@@ -1,13 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
 import { CreateExamDto, ExamDetailDto, ExamDto, ExamSubmissionResult, StudentExamResultDto, ExamResultDetailDto, StartExamResponse, SubmitExamDto } from '../models/exam.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExamService {
-  private apiUrl = 'http://localhost:5131/api/Exam';
+  private apiUrl = `${environment.apiUrl}/Exam`;
   private http = inject(HttpClient);
 
   constructor() { }

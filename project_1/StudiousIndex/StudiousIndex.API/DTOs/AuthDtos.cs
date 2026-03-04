@@ -14,6 +14,17 @@ namespace StudiousIndex.API.DTOs
         [Required]
         [MinLength(6)]
         public string Password { get; set; } = string.Empty;
+
+        [Phone]
+        public string? MobileNumber { get; set; }
+        
+        public string? RollNumber { get; set; }
+        
+        [Required]
+        public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        public string CollegeName { get; set; } = string.Empty;
         
         [Required]
         public string Role { get; set; } = "Student"; // Default to Student

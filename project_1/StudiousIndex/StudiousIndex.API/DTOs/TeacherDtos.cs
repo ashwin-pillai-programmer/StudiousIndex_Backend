@@ -23,6 +23,7 @@ namespace StudiousIndex.API.DTOs
     public class TeacherStudentAttemptDto
     {
         public int AttemptId { get; set; }
+        public string StudentId { get; set; } = string.Empty;
         public string StudentName { get; set; } = string.Empty;
         public string ExamTitle { get; set; } = string.Empty;
         public DateTime AttemptDate { get; set; }

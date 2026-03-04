@@ -68,5 +68,27 @@ namespace StudiousIndex.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPost("exams-to-today")]
+        public async Task<IActionResult> FixExamsForToday()
+        {
+            try
+            {
+                var exams = await _context.Exams.ToListAsync();
+                var today = DateTime.Today.AddHours(10); // 10 AM today
+                foreach (var e in exams)
+                {
+                    e.ScheduledDate = today;
+                    e.IsApproved = true;
+                    e.IsActive = true;
+                }
+                await _context.SaveChangesAsync();
+                return Ok(new { Message = "All exams moved to today 10 AM for notification testing." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

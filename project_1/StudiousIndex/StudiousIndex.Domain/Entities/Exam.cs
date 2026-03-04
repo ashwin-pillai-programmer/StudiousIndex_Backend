@@ -25,6 +25,7 @@ namespace StudiousIndex.Domain.Entities
         public bool IsActive { get; set; } = true;
 
         public bool IsApproved { get; set; } = false;
+        public bool IsPracticeEnabled { get; set; } = false;
         
         public ICollection<Question> Questions { get; set; } = new List<Question>();
     }

@@ -1,0 +1,141 @@
+<div class="edumanage-dashboard">
+  <aside class="edumanage-sidebar">
+    <div class="edumanage-sidebar-header">
+      <span class="edumanage-sidebar-logo"><i class="bi bi-mortarboard-fill"></i></span>
+      <span class="edumanage-sidebar-brand">StudiousIndex</span>
+      <span class="edumanage-sidebar-tagline">Education Management System</span>
+    </div>
+    <nav class="edumanage-sidebar-nav">
+      <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="edumanage-nav-link">
+        <i class="bi bi-grid-1x2-fill"></i>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/admin/users" class="edumanage-nav-link">
+        <i class="bi bi-people-fill"></i>
+        <span>Users</span>
+      </a>
+      <a routerLink="/admin/exams" class="edumanage-nav-link">
+        <i class="bi bi-journal-text"></i>
+        <span>Exams</span>
+      </a>
+      <a routerLink="/admin/monitoring" class="edumanage-nav-link">
+        <i class="bi bi-clipboard-data"></i>
+        <span>Monitoring</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="edumanage-main">
+    <header class="edumanage-page-header">
+      <h1 class="edumanage-title">Dashboard</h1>
+      <p class="edumanage-subtitle">Welcome back! Here's an overview of your education platform.</p>
+    </header>
+
+    <!-- Summary cards -->
+    <div class="edumanage-cards-row">
+      <div class="edumanage-stat-card">
+        <div class="edumanage-stat-content">
+          <span class="edumanage-stat-label">Total Users</span>
+          <span class="edumanage-stat-value">{{ stats.totalUsers ?? '—' }}</span>
+        </div>
+        <div class="edumanage-stat-icon edumanage-stat-icon-blue">
+          <i class="bi bi-people-fill"></i>
+        </div>
+      </div>
+      <div class="edumanage-stat-card">
+        <div class="edumanage-stat-content">
+          <span class="edumanage-stat-label">Total Exams</span>
+          <span class="edumanage-stat-value">{{ stats.totalExams ?? '—' }}</span>
+        </div>
+        <div class="edumanage-stat-icon edumanage-stat-icon-green">
+          <i class="bi bi-journal-text"></i>
+        </div>
+      </div>
+      <div class="edumanage-stat-card">
+        <div class="edumanage-stat-content">
+          <span class="edumanage-stat-label">Pending Approval</span>
+          <span class="edumanage-stat-value">{{ pendingExams.length }}</span>
+        </div>
+        <div class="edumanage-stat-icon edumanage-stat-icon-purple">
+          <i class="bi bi-clipboard-check"></i>
+        </div>
+      </div>
+      <div class="edumanage-stat-card">
+        <div class="edumanage-stat-content">
+          <span class="edumanage-stat-label">Total Attempts</span>
+          <span class="edumanage-stat-value">{{ stats.totalAttempts ?? '—' }}</span>
+        </div>
+        <div class="edumanage-stat-icon edumanage-stat-icon-orange">
+          <i class="bi bi-graph-up-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two panels: Recent Exams | Recent Activity -->
+    <div class="edumanage-panels-row">
+      <div class="edumanage-panel">
+        <h2 class="edumanage-panel-title">Recent Exams</h2>
+        <div class="edumanage-list" *ngIf="!examsLoading">
+          <div *ngIf="recentExams.length === 0" class="edumanage-list-empty">No exams yet.</div>
+          <div class="edumanage-list-item" *ngFor="let exam of recentExams">
+            <span class="edumanage-list-icon"><i class="bi bi-journal-text"></i></span>
+            <div class="edumanage-list-body">
+              <span class="edumanage-list-primary">{{ exam.title }}</span>
+              <span class="edumanage-list-secondary">{{ exam.grade || '—' }} • {{ exam.createdBy }}</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="examsLoading" class="edumanage-list-loading">Loading…</div>
+      </div>
+      <div class="edumanage-panel">
+        <h2 class="edumanage-panel-title">Recent Activity</h2>
+        <div class="edumanage-activity-list" *ngIf="!reportsLoading">
+          <div *ngIf="recentActivity.length === 0" class="edumanage-list-empty">No activity yet.</div>
+          <div class="edumanage-activity-item" *ngFor="let a of recentActivity">
+            <span class="edumanage-activity-text">{{ a.studentName }} submitted '{{ a.examTitle }}'</span>
+            <span class="edumanage-activity-time">{{ timeAgo(a.attemptDate) }}</span>
+          </div>
+        </div>
+        <div *ngIf="reportsLoading" class="edumanage-list-loading">Loading…</div>
+      </div>
+    </div>
+
+    <!-- Upcoming Assignments (Pending Exams) table -->
+    <div class="edumanage-panel edumanage-table-panel">
+      <h2 class="edumanage-panel-title">Pending Exams</h2>
+      <div class="edumanage-table-wrap">
+        <table class="edumanage-table">
+          <thead>
+            <tr>
+              <th>Exam</th>
+              <th>Course</th>
+              <th>Due / Scheduled</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="examsLoading">
+              <td colspan="4" class="edumanage-table-loading">Loading…</td>
+            </tr>
+            <tr *ngIf="!examsLoading && pendingExams.length === 0">
+              <td colspan="4" class="edumanage-table-empty">No pending exams.</td>
+            </tr>
+            <tr *ngFor="let exam of pendingExams">
+              <td class="edumanage-table-primary">{{ exam.title }}</td>
+              <td>{{ exam.grade || '—' }} • {{ exam.board || '—' }}</td>
+              <td>{{ exam.scheduledDate | date:'mediumDate' }}</td>
+              <td><span class="edumanage-badge edumanage-badge-warning">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="edumanage-actions">
+      <a routerLink="/admin/users" class="edumanage-btn-outline">Manage Users</a>
+      <a routerLink="/admin/exams" class="edumanage-btn-outline">Manage Exams</a>
+      <a routerLink="/admin/monitoring" class="edumanage-btn-outline">View Monitoring</a>
+    </div>
+  </main>
+</div>

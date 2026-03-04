@@ -1,0 +1,380 @@
+/* EduManage-style dashboard — simple, light, newcomer-friendly */
+
+.edumanage-dashboard {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: calc(100vh - 72px);
+  background: #f1f5f9;
+}
+
+@media (max-width: 991px) {
+  .edumanage-dashboard {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar */
+.edumanage-sidebar {
+  background: #fff;
+  border-right: 1px solid #e2e8f0;
+  padding: 0;
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+}
+
+.edumanage-sidebar-header {
+  background: #1e40af;
+  color: #fff;
+  padding: 1.25rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.edumanage-sidebar-logo {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.edumanage-sidebar-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.edumanage-sidebar-tagline {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.edumanage-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0;
+  gap: 0.15rem;
+}
+
+.edumanage-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.25rem;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.edumanage-nav-link i {
+  font-size: 1.1rem;
+  width: 1.25rem;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.edumanage-nav-link:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.edumanage-nav-link.active {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.edumanage-nav-link.active i {
+  color: #1e40af;
+}
+
+/* Main content */
+.edumanage-main {
+  padding: 1.75rem 2rem 2rem;
+  overflow-y: auto;
+  max-width: 1200px;
+}
+
+.edumanage-page-header {
+  margin-bottom: 1.5rem;
+}
+
+.edumanage-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.25rem 0;
+}
+
+.edumanage-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Stat cards row */
+.edumanage-cards-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .edumanage-cards-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .edumanage-cards-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.edumanage-stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.edumanage-stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.edumanage-stat-label {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.edumanage-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.edumanage-stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.edumanage-stat-icon-blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.edumanage-stat-icon-green {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.edumanage-stat-icon-purple {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.edumanage-stat-icon-orange {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+/* Two panels row */
+.edumanage-panels-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .edumanage-panels-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.edumanage-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.35rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.edumanage-panel-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 1rem 0;
+}
+
+.edumanage-list,
+.edumanage-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.edumanage-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.edumanage-list-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.edumanage-list-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.edumanage-list-primary {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+.edumanage-list-secondary {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.edumanage-activity-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.edumanage-activity-text {
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.edumanage-activity-time {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.edumanage-list-empty,
+.edumanage-list-loading {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  padding: 0.5rem 0;
+}
+
+/* Table panel */
+.edumanage-table-panel {
+  margin-bottom: 1.5rem;
+}
+
+.edumanage-table-wrap {
+  overflow-x: auto;
+}
+
+.edumanage-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.edumanage-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.edumanage-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+.edumanage-table-primary {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.edumanage-table-loading,
+.edumanage-table-empty {
+  text-align: center;
+  color: #94a3b8;
+  padding: 1.5rem !important;
+}
+
+.edumanage-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.edumanage-badge-warning {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/* Quick actions */
+.edumanage-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.edumanage-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid #1e40af;
+  color: #1e40af;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.edumanage-btn-outline:hover {
+  background: #dbeafe;
+  color: #1e40af;
+}

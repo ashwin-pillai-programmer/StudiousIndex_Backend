@@ -12,6 +12,7 @@ namespace StudiousIndex.API.DTOs
     public class SubmitExamDto
     {
         public int AttemptId { get; set; }
+        public bool IsPractice { get; set; }
         public List<SubmitAnswerDto> Answers { get; set; } = new();
     }
 

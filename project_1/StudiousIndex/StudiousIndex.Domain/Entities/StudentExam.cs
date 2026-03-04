@@ -18,6 +18,8 @@ namespace StudiousIndex.Domain.Entities
         public int Score { get; set; }
         
         public bool IsCompleted { get; set; }
+        
+        public bool IsPractice { get; set; }
 
         public ICollection<StudentExamAnswer> Answers { get; set; } = new List<StudentExamAnswer>();
     }

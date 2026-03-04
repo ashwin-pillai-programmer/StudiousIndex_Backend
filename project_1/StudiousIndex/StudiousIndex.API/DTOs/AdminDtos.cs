@@ -16,6 +16,7 @@ namespace StudiousIndex.API.DTOs
         public required string Email { get; set; }
         public required string Role { get; set; }
         public bool IsActive { get; set; }
+        public string CollegeName { get; set; } = string.Empty;
     }
 
     public class UpdateUserRoleDto

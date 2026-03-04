@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +16,33 @@ export class LoginComponent {
   password = '';
   error = '';
   isLoading = false;
+  showPassword = false;
   
   authService = inject(AuthService);
   router = inject(Router);
+  route = inject(ActivatedRoute);
+
+  get loginRoleFromRoute(): string {
+    const param = (this.route.snapshot.paramMap.get('role') || '').toLowerCase();
+    if (param === 'admin' || param === 'teacher' || param === 'student') {
+      return param;
+    }
+    return '';
+  }
+
+  get subtitleText(): string {
+    const role = this.loginRoleFromRoute;
+    if (role === 'admin') {
+      return 'Admin login. Please enter your credentials.';
+    }
+    if (role === 'teacher') {
+      return 'Teacher login. Please enter your credentials.';
+    }
+    if (role === 'student') {
+      return 'Student login. Please enter your credentials.';
+    }
+    return 'Welcome back! Please login to your account.';
+  }
 
   login() {
     this.isLoading = true;
@@ -30,14 +54,35 @@ export class LoginComponent {
         const role = this.authService.getUserRole();
         console.log('Stored role:', role);
         console.log('Token:', this.authService.getToken());
+        const routeRole = this.loginRoleFromRoute;
+        const normalizedRole = role.toLowerCase();
+        if (routeRole === 'admin' && normalizedRole !== 'admin') {
+          this.error = 'Please use an Admin account for this login page.';
+          this.isLoading = false;
+          return;
+        }
+        if (routeRole === 'teacher' && normalizedRole !== 'teacher') {
+          this.error = 'Please use a Teacher account for this login page.';
+          this.isLoading = false;
+          return;
+        }
+        if (routeRole === 'student' && normalizedRole !== 'student') {
+          this.error = 'Please use a Student account for this login page.';
+          this.isLoading = false;
+          return;
+        }
         if (role === 'Teacher') {
-          this.router.navigate(['/teacher/dashboard']);
+          console.log('[Login] Navigating to /teacher');
+          this.router.navigate(['/teacher']);
         } else if (role === 'Admin') {
+          console.log('[Login] Navigating to /admin');
           this.router.navigate(['/admin']);
         } else if (role === 'Student') {
-          this.router.navigate(['/student/dashboard']);
+          console.log('[Login] Navigating to /student');
+          this.router.navigate(['/student']);
         } else {
-          this.router.navigate(['/']);
+          console.log('[Login] Navigating to /home (unknown role)');
+          this.router.navigate(['/home']);
         }
         this.isLoading = false;
       },
@@ -53,5 +98,9 @@ export class LoginComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

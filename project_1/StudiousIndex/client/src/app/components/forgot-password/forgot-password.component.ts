@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environments';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, HttpClientModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent implements OnInit {
   step: number = 1;
   mobile: string = '';
   otp: string = '';
@@ -22,9 +23,15 @@ export class ForgotPasswordComponent {
   success: string = '';
   devOtp: string = ''; // For development mode only
   
-  private apiUrl = 'http://localhost:5131/api/Auth';
+  private apiUrl = `${environment.apiUrl}/Auth`;
 
   constructor(private router: Router, private http: HttpClient) {}
+
+  ngOnInit() {
+    if ('Notification' in window && Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+  }
 
   sendOtp() {
     this.error = '';
@@ -45,6 +52,13 @@ export class ForgotPasswordComponent {
         if (res.otp) {
           this.devOtp = res.otp;
           console.log('Development Mode OTP:', res.otp);
+          
+          if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification('StudiousIndex OTP', {
+              body: `Your OTP is ${res.otp}. Valid for 2 minutes.`,
+              icon: '/assets/icons/icon-72x72.png'
+            });
+          }
         }
       },
       error: (err) => {
@@ -93,10 +107,8 @@ export class ForgotPasswordComponent {
       newPassword: this.newPassword 
     }).subscribe({
       next: (res: any) => {
-        this.success = res.message || 'Password reset successfully! Redirecting to login...';
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
+        this.success = 'Password reset successful. Redirecting to login...';
+        setTimeout(() => this.router.navigate(['/login']), 3000);
       },
       error: (err) => {
         this.error = err.error?.message || 'Failed to reset password. Please try again.';

@@ -8,13 +8,21 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
   const token = authService.getToken();
+  const isAuthRequest = req.url.includes('/api/Auth/login') || req.url.includes('/api/Auth/register');
 
   if (token) {
+    // Only log for non-auth requests to reduce noise
+    if (!isAuthRequest) {
+      console.log(`[AuthInterceptor] Attaching token to: ${req.url}`);
+    }
     req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
       }
     });
+  } else if (!isAuthRequest) {
+    // Only warn if it's NOT a login/register request but token is missing
+    console.warn(`[AuthInterceptor] No token found for protected resource: ${req.url}`);
   }
 
   return next(req).pipe(

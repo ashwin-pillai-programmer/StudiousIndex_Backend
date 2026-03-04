@@ -15,10 +15,40 @@ namespace StudiousIndex.Data
         public DbSet<Option> Options { get; set; } = null!;
         public DbSet<StudentExam> StudentExams { get; set; } = null!;
         public DbSet<StudentExamAnswer> StudentExamAnswers { get; set; } = null!;
+        public DbSet<VideoLecture> VideoLectures { get; set; } = null!;
+        public DbSet<StudentResult> StudentResults { get; set; } = null!;
+        public DbSet<SubjectResult> SubjectResults { get; set; } = null!;
+        public DbSet<Notification> Notifications { get; set; } = null!;
+        public DbSet<AttendanceSession> AttendanceSessions { get; set; } = null!;
+        public DbSet<StudentAttendance> StudentAttendances { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<AttendanceSession>()
+                .HasOne(a => a.CreatedByTeacher)
+                .WithMany()
+                .HasForeignKey(a => a.CreatedByTeacherId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<StudentAttendance>()
+                .HasOne(s => s.Student)
+                .WithMany()
+                .HasForeignKey(s => s.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<StudentAttendance>()
+                .HasOne(s => s.AttendanceSession)
+                .WithMany(a => a.StudentAttendances)
+                .HasForeignKey(s => s.AttendanceSessionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<VideoLecture>()
+                .HasOne(v => v.CreatedByTeacher)
+                .WithMany()
+                .HasForeignKey(v => v.CreatedByTeacherId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Exam>()
                 .HasOne(e => e.CreatedByUser)
@@ -67,6 +97,18 @@ namespace StudiousIndex.Data
                 .WithMany()
                 .HasForeignKey(sea => sea.SelectedOptionId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<StudentResult>()
+                .HasOne(sr => sr.Student)
+                .WithMany()
+                .HasForeignKey(sr => sr.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<SubjectResult>()
+                .HasOne(sur => sur.StudentResult)
+                .WithMany(sr => sr.SubjectResults)
+                .HasForeignKey(sur => sur.StudentResultId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -16,7 +16,6 @@ C:\Users\Ashwin\Documents\project_1\StudiousIndex\StudiousIndex.Data\obj\Debug\n
 C:\Users\Ashwin\Documents\project_1\StudiousIndex\StudiousIndex.Data\obj\Debug\net8.0\StudiousIndex.Data.genruntimeconfig.cache
 C:\Users\Ashwin\Documents\project_1\StudiousIndex\StudiousIndex.Data\obj\Debug\net8.0\ref\StudiousIndex.Data.dll
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\bin\Debug\net8.0\StudiousIndex.Data.deps.json
-C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\bin\Debug\net8.0\StudiousIndex.Data.runtimeconfig.json
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\bin\Debug\net8.0\StudiousIndex.Data.dll
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\bin\Debug\net8.0\StudiousIndex.Data.pdb
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\bin\Debug\net8.0\StudiousIndex.Domain.dll
@@ -31,5 +30,4 @@ C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousInde
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\obj\Debug\net8.0\StudiousIndex.Data.dll
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\obj\Debug\net8.0\refint\StudiousIndex.Data.dll
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\obj\Debug\net8.0\StudiousIndex.Data.pdb
-C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\obj\Debug\net8.0\StudiousIndex.Data.genruntimeconfig.cache
 C:\Users\Ashwin\Documents\GitHub\ashwin-pillai-programmer\project_1\StudiousIndex\StudiousIndex.Data\obj\Debug\net8.0\ref\StudiousIndex.Data.dll

@@ -1,0 +1,119 @@
+<div class="home-page">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Studious<span class="hero-accent">Index</span>
+        </h1>
+        <p class="hero-tagline">Smart Learning. Smarter Evaluation.</p>
+        <p class="hero-description">
+          StudiousIndex brings together video lectures, online exams, and smart analytics
+          into a single, modern experience for schools and colleges.
+        </p>
+        <div class="hero-actions">
+          <a routerLink="/student/videos" class="btn-primary-action">
+            Explore Learning
+          </a>
+          <a routerLink="/student" class="btn-secondary-action">
+            View Dashboards
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="container">
+      <div class="section-header">
+        <h2>About StudiousIndex</h2>
+        <p>
+          A complete digital platform that helps institutes manage online exams, video learning,
+          and performance evaluation with ease.
+        </p>
+      </div>
+      <div class="card-grid">
+        <div class="info-card" *ngFor="let card of aboutCards">
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section featured-classes">
+    <div class="container">
+      <div class="section-header">
+        <h2>Featured Classes</h2>
+        <p>
+          Start with carefully curated content for early classes to build strong foundations in
+          Maths and English.
+        </p>
+      </div>
+      <div class="card-grid four-grid">
+        <div class="class-card" *ngFor="let item of featuredClasses">
+          <div class="class-icon">
+            <i class="bi" [ngClass]="item.icon"></i>
+          </div>
+          <h3>{{ item.title }}</h3>
+          <p class="class-subtitle">{{ item.subtitle }}</p>
+          <p class="class-description">{{ item.description }}</p>
+          <button class="class-button" routerLink="/student/videos">
+            View Lectures
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Platform Highlights</h2>
+        <p>
+          Designed for real classrooms, real students, and real-time evaluation.
+        </p>
+      </div>
+      <div class="card-grid four-grid">
+        <div class="feature-card" *ngFor="let feature of featureHighlights">
+          <div class="feature-icon">
+            <i class="bi" [ngClass]="feature.icon"></i>
+          </div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section roles">
+    <div class="container">
+      <div class="section-header">
+        <h2>Panels for Every Role</h2>
+        <p>
+          Clear, focused dashboards for admins, teachers, and students to work together.
+        </p>
+      </div>
+      <div class="card-grid three-grid">
+        <div class="role-card" *ngFor="let role of rolePanels">
+          <h3>{{ role.title }}</h3>
+          <p>{{ role.description }}</p>
+          <a [routerLink]="role.link" class="role-link">
+            Open {{ role.title }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-text">
+        <span>© 2025 StudiousIndex</span>
+        <span>Built with ASP.NET Core + Angular</span>
+        <span>Developer: Ashwin Pillai</span>
+      </div>
+    </div>
+  </footer>
+</div>
+

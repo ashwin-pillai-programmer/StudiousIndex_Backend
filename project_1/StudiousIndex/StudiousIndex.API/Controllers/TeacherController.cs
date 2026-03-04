@@ -225,6 +225,7 @@ namespace StudiousIndex.API.Controllers
             var dtos = attempts.Select(r => new TeacherStudentAttemptDto
             {
                 AttemptId = r.Id,
+                StudentId = r.StudentId,
                 StudentName = r.Student?.FullName ?? "Unknown",
                 ExamTitle = r.Exam?.Title ?? "Unknown",
                 AttemptDate = r.SubmitTime ?? r.StartTime,

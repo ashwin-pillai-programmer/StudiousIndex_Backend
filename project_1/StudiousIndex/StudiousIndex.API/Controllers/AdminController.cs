@@ -10,7 +10,6 @@ namespace StudiousIndex.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -62,7 +61,8 @@ namespace StudiousIndex.API.Controllers
                     FullName = user.FullName ?? "Unknown",
                     Email = user.Email ?? "Unknown",
                     Role = roles.FirstOrDefault() ?? "None",
-                    IsActive = user.IsActive
+                    IsActive = user.IsActive,
+                    CollegeName = user.CollegeName ?? string.Empty
                 });
             }
 
@@ -170,17 +170,20 @@ namespace StudiousIndex.API.Controllers
             var attempts = await _context.StudentExams
                 .Include(a => a.Student)
                 .Include(a => a.Exam)
-                .OrderByDescending(a => a.StartTime)
+                .Where(a => a.IsCompleted)
+                .OrderByDescending(a => a.SubmitTime ?? a.StartTime)
                 .ToListAsync();
             
             // Create a DTO for this if needed, or return anonymous object
             var result = attempts.Select(a => new 
             {
                 a.Id,
+                a.StudentId,
+                ExamId = a.ExamId,
                 StudentName = a.Student?.FullName ?? "Unknown",
                 ExamTitle = a.Exam?.Title ?? "Unknown",
                 a.Score,
-                AttemptDate = a.StartTime
+                AttemptDate = a.SubmitTime ?? a.StartTime
             });
 
             return Ok(result);
