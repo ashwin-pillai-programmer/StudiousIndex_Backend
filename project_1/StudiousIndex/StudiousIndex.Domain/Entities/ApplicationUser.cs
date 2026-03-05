@@ -9,5 +9,6 @@ namespace StudiousIndex.Domain.Entities
         public string RollNumber { get; set; } = string.Empty;
         public DateTime? DateOfBirth { get; set; }
         public string CollegeName { get; set; } = string.Empty;
+        public string ClassLevel { get; set; } = string.Empty;
     }
 }

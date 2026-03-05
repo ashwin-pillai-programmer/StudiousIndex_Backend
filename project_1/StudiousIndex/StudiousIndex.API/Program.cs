@@ -144,6 +144,7 @@ builder.Services.AddCors(options =>
 // Twilio SMS
 builder.Services.AddScoped<ISmsService, SmsService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 
 var app = builder.Build();
 
